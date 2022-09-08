@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "173688996241",
+    "project_id": "autotherapia137",
+    "storage_bucket": "autotherapia137.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:173688996241:android:989c7540630bc8c5a25a30",
+        "android_client_info": {
+          "package_name": "com.example.autotherapia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "173688996241-ece96p94adn7moclej6lnj06mhaqm25f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFICSNqp_ACL1GJ-cL4fapzj58rPnwhx0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "173688996241-ece96p94adn7moclej6lnj06mhaqm25f.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "173688996241-17r6ckrmtp0l3rtptfbn38utrqfh0fbm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "io.flutter.flutter.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
