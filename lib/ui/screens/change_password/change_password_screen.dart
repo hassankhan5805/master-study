@@ -22,7 +22,8 @@ class ChangePasswordScreen extends StatelessWidget {
         ),
         backgroundColor: mainColor,
       ),
-      body: BlocProvider<ChangePasswordBloc>(create: (context) => bloc, child: ChangePasswordWidget()),
+      body: BlocProvider<ChangePasswordBloc>(
+          create: (context) => bloc, child: ChangePasswordWidget()),
     );
   }
 }
@@ -60,13 +61,15 @@ class _ChangePasswordWidgetState extends State<ChangePasswordWidget> {
         if (state is SuccessChangePasswordState)
           Scaffold.of(context).showSnackBar(
             SnackBar(
-              content: Text(localizations!.getLocalization("password_is_changed")),
+              content:
+                  Text(localizations!.getLocalization("password_is_changed")),
               backgroundColor: Colors.green,
             ),
           );
 
-        if(state is ErrorChangePasswordState) {
-          WidgetsBinding.instance?.addPostFrameCallback((_) => showDialogError(context, state.message));
+        if (state is ErrorChangePasswordState) {
+          WidgetsBinding.instance.addPostFrameCallback(
+              (_) => showDialogError(context, state.message));
         }
       },
       child: BlocBuilder<ChangePasswordBloc, ChangePasswordState>(
@@ -99,7 +102,8 @@ class _ChangePasswordWidgetState extends State<ChangePasswordWidget> {
               obscureText: obscureText,
               decoration: InputDecoration(
                 labelText: localizations!.getLocalization('current_password'),
-                helperText: localizations!.getLocalization('current_password_helper'),
+                helperText:
+                    localizations!.getLocalization('current_password_helper'),
                 filled: true,
                 suffixIcon: IconButton(
                     icon: Icon(
@@ -136,7 +140,8 @@ class _ChangePasswordWidgetState extends State<ChangePasswordWidget> {
                 if (val!.isEmpty) return 'Fill in the field';
 
                 if (val.length < 8) {
-                  return localizations!.getLocalization("password_register_characters_count_error_text");
+                  return localizations!.getLocalization(
+                      "password_register_characters_count_error_text");
                 }
 
                 if (RegExp(r'^[a-zA-Z]+$').hasMatch(val)) {
@@ -146,7 +151,8 @@ class _ChangePasswordWidgetState extends State<ChangePasswordWidget> {
               },
               decoration: InputDecoration(
                 labelText: localizations!.getLocalization('new_password'),
-                helperText: localizations!.getLocalization('password_registration_helper_text'),
+                helperText: localizations!
+                    .getLocalization('password_registration_helper_text'),
                 filled: true,
                 labelStyle: TextStyle(
                   color: myFocusNode.hasFocus ? Colors.black : Colors.black,
@@ -183,7 +189,8 @@ class _ChangePasswordWidgetState extends State<ChangePasswordWidget> {
                   return 'Fill in the field';
                 }
 
-                if (newPasswordController.text != newPasswordConfirmController.text) {
+                if (newPasswordController.text !=
+                    newPasswordConfirmController.text) {
                   return 'Passwords do not match';
                 }
 
@@ -192,7 +199,8 @@ class _ChangePasswordWidgetState extends State<ChangePasswordWidget> {
               obscureText: obscureText2,
               decoration: InputDecoration(
                 labelText: localizations!.getLocalization('confirm_password'),
-                helperText: localizations!.getLocalization('confirm_password_helper'),
+                helperText:
+                    localizations!.getLocalization('confirm_password_helper'),
                 filled: true,
                 suffixIcon: IconButton(
                     icon: Icon(
@@ -225,9 +233,9 @@ class _ChangePasswordWidgetState extends State<ChangePasswordWidget> {
               color: mainColor,
               child: setUpButtonChild(enableInputs),
               onPressed: () {
-
                 if (_formKey.currentState!.validate()) {
-                  _bloc.add(SendChangePasswordEvent(oldPasswordController.text, newPasswordController.text));
+                  _bloc.add(SendChangePasswordEvent(
+                      oldPasswordController.text, newPasswordController.text));
                 }
               },
               // child: setUpButtonChild(enableInputs),
@@ -261,7 +269,9 @@ class _ChangePasswordWidgetState extends State<ChangePasswordWidget> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text(localizations!.getLocalization("error_dialog_title"), textScaleFactor: 1.0, style: TextStyle(color: Colors.black, fontSize: 20.0)),
+            title: Text(localizations!.getLocalization("error_dialog_title"),
+                textScaleFactor: 1.0,
+                style: TextStyle(color: Colors.black, fontSize: 20.0)),
             content: Text(text ?? 'Error'),
             actions: <Widget>[
               ElevatedButton(
@@ -280,5 +290,4 @@ class _ChangePasswordWidgetState extends State<ChangePasswordWidget> {
           );
         });
   }
-
 }

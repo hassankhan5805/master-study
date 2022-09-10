@@ -26,8 +26,10 @@ class AuthScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final AuthScreenArgs args = ModalRoute.of(context)?.settings.arguments as AuthScreenArgs;
-    return BlocProvider(child: AuthScreenWidget(args.optionsBean), create: (context) => _bloc);
+    final AuthScreenArgs args =
+        ModalRoute.of(context)?.settings.arguments as AuthScreenArgs;
+    return BlocProvider(
+        child: AuthScreenWidget(args.optionsBean), create: (context) => _bloc);
   }
 }
 
@@ -62,10 +64,13 @@ class AuthScreenWidgetState extends State<AuthScreenWidget> {
                     ? SvgPicture.network(appLogoUrl!)
                     : CachedNetworkImage(
                         imageUrl: appLogoUrl!,
-                        placeholder: (context, url) => Center(child: CircularProgressIndicator()),
+                        placeholder: (context, url) =>
+                            Center(child: CircularProgressIndicator()),
                         errorWidget: (context, url, error) {
                           if (appLogoUrl.toString().contains('svg')) {
-                            SizedBox(width: 50.0, child: SvgPicture.asset(appLogoUrl.toString()));
+                            SizedBox(
+                                width: 50.0,
+                                child: SvgPicture.asset(appLogoUrl.toString()));
                           } else {
                             SizedBox(
                               width: 50.0,
@@ -160,16 +165,19 @@ class _SignUpPageState extends State<_SignUpPage> {
     return BlocBuilder<AuthBloc, AuthState>(
       builder: (context, state) {
         if (state is SuccessAuthState) {
-            enableInputsDemo = false;
-            enableInputs = true;
-          WidgetsBinding.instance?.addPostFrameCallback((_) => Navigator.pushReplacementNamed(context, MainScreen.routeName, arguments: MainScreenArgs(widget.optionsBean)));
+          enableInputsDemo = false;
+          enableInputs = true;
+          WidgetsBinding.instance.addPostFrameCallback((_) =>
+              Navigator.pushReplacementNamed(context, MainScreen.routeName,
+                  arguments: MainScreenArgs(widget.optionsBean)));
         }
 
         if (state is ErrorAuthState) {
-            enableInputs = true;
-            enableInputsDemo = false;
-            preferences!.setBool('demo', false);
-          WidgetsBinding.instance?.addPostFrameCallback((_) => showDialogError(context, state.message));
+          enableInputs = true;
+          enableInputsDemo = false;
+          preferences!.setBool('demo', false);
+          WidgetsBinding.instance.addPostFrameCallback(
+              (_) => showDialogError(context, state.message));
         }
 
         return Form(
@@ -178,14 +186,17 @@ class _SignUpPageState extends State<_SignUpPage> {
             children: <Widget>[
               //Login
               Padding(
-                padding: const EdgeInsets.only(left: 18.0, right: 18.0, top: 30.0),
+                padding:
+                    const EdgeInsets.only(left: 18.0, right: 18.0, top: 30.0),
                 child: TextFormField(
                   controller: _loginController,
                   enabled: enableInputs,
                   cursorColor: mainColor,
                   decoration: InputDecoration(
-                    labelText: localizations!.getLocalization("login_label_text"),
-                    helperText: localizations!.getLocalization("login_registration_helper_text"),
+                    labelText:
+                        localizations!.getLocalization("login_label_text"),
+                    helperText: localizations!
+                        .getLocalization("login_registration_helper_text"),
                     filled: true,
                     labelStyle: TextStyle(
                       color: myFocusNode.hasFocus ? Colors.red : Colors.black,
@@ -199,7 +210,8 @@ class _SignUpPageState extends State<_SignUpPage> {
                   ),
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return localizations!.getLocalization("login_empty_error_text");
+                      return localizations!
+                          .getLocalization("login_empty_error_text");
                     }
                     return null;
                   },
@@ -207,14 +219,17 @@ class _SignUpPageState extends State<_SignUpPage> {
               ),
               //Email
               Padding(
-                padding: const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
+                padding:
+                    const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
                 child: TextFormField(
                   controller: _emailController,
                   enabled: enableInputs,
                   cursorColor: mainColor,
                   decoration: InputDecoration(
-                    labelText: localizations!.getLocalization("email_label_text"),
-                    helperText: localizations!.getLocalization("email_helper_text"),
+                    labelText:
+                        localizations!.getLocalization("email_label_text"),
+                    helperText:
+                        localizations!.getLocalization("email_helper_text"),
                     filled: true,
                     labelStyle: TextStyle(
                       color: myFocusNode.hasFocus ? Colors.red : Colors.black,
@@ -231,15 +246,18 @@ class _SignUpPageState extends State<_SignUpPage> {
               ),
               //Password
               Padding(
-                padding: const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
+                padding:
+                    const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
                 child: TextFormField(
                   controller: _passwordController,
                   enabled: enableInputs,
                   obscureText: passwordVisible,
                   cursorColor: mainColor,
                   decoration: InputDecoration(
-                    labelText: localizations!.getLocalization("password_label_text"),
-                    helperText: localizations!.getLocalization("password_registration_helper_text"),
+                    labelText:
+                        localizations!.getLocalization("password_label_text"),
+                    helperText: localizations!
+                        .getLocalization("password_registration_helper_text"),
                     filled: true,
                     labelStyle: TextStyle(
                       color: myFocusNode.hasFocus ? Colors.red : Colors.black,
@@ -252,7 +270,9 @@ class _SignUpPageState extends State<_SignUpPage> {
                     ),
                     suffixIcon: IconButton(
                       icon: Icon(
-                        passwordVisible ? Icons.visibility : Icons.visibility_off,
+                        passwordVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off,
                       ),
                       onPressed: () {
                         setState(() {
@@ -264,10 +284,12 @@ class _SignUpPageState extends State<_SignUpPage> {
                   ),
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return localizations!.getLocalization("password_empty_error_text");
+                      return localizations!
+                          .getLocalization("password_empty_error_text");
                     }
                     if (value.length < 8) {
-                      return localizations!.getLocalization("password_register_characters_count_error_text");
+                      return localizations!.getLocalization(
+                          "password_register_characters_count_error_text");
                     }
 
                     return null;
@@ -276,7 +298,8 @@ class _SignUpPageState extends State<_SignUpPage> {
               ),
               //Button "Registration"
               Padding(
-                padding: const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
+                padding:
+                    const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
                 child: MaterialButton(
                   minWidth: double.infinity,
                   color: mainColor,
@@ -302,7 +325,8 @@ class _SignUpPageState extends State<_SignUpPage> {
               Visibility(
                 visible: demoEnabled ?? false,
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
+                  padding:
+                      const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
                   child: new MaterialButton(
                     minWidth: double.infinity,
                     color: mainColor,
@@ -400,7 +424,13 @@ class _SignUpPageState extends State<_SignUpPage> {
       return localizations!.getLocalization("email_empty_error_text");
     }
     // This is just a regular expression for email addresses
-    String p = "[a-zA-Z0-9\+\.\_\%\-\+]{1,256}" + "\\@" + "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" + "(" + "\\." + "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" + ")+";
+    String p = "[a-zA-Z0-9\+\.\_\%\-\+]{1,256}" +
+        "\\@" +
+        "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
+        "(" +
+        "\\." +
+        "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
+        ")+";
     RegExp regExp = new RegExp(p);
 
     if (regExp.hasMatch(value)) {
@@ -445,7 +475,7 @@ class _SignInPageState extends State<_SignInPage> {
         var enableInputs = !(state is LoadingAuthState);
 
         if (state is SuccessAuthState) {
-          WidgetsBinding.instance?.addPostFrameCallback(
+          WidgetsBinding.instance.addPostFrameCallback(
             (_) => Navigator.pushReplacementNamed(
               context,
               MainScreen.routeName,
@@ -464,14 +494,17 @@ class _SignInPageState extends State<_SignInPage> {
             children: <Widget>[
               //Login
               Padding(
-                padding: const EdgeInsets.only(left: 18.0, right: 18.0, top: 30.0),
+                padding:
+                    const EdgeInsets.only(left: 18.0, right: 18.0, top: 30.0),
                 child: TextFormField(
                   controller: _loginController,
                   enabled: enableInputs,
                   cursorColor: mainColor,
                   decoration: InputDecoration(
-                    labelText: localizations!.getLocalization("login_label_text"),
-                    helperText: localizations!.getLocalization("login_sign_in_helper_text"),
+                    labelText:
+                        localizations!.getLocalization("login_label_text"),
+                    helperText: localizations!
+                        .getLocalization("login_sign_in_helper_text"),
                     filled: true,
                     labelStyle: TextStyle(
                       color: myFocusNode.hasFocus ? Colors.black : Colors.black,
@@ -485,7 +518,8 @@ class _SignInPageState extends State<_SignInPage> {
                   ),
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return localizations!.getLocalization("login_sign_in_helper_text");
+                      return localizations!
+                          .getLocalization("login_sign_in_helper_text");
                     }
                     return null;
                   },
@@ -493,15 +527,18 @@ class _SignInPageState extends State<_SignInPage> {
               ),
               //Password
               Padding(
-                padding: const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
+                padding:
+                    const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
                 child: TextFormField(
                   controller: _passwordController,
                   enabled: enableInputs,
                   obscureText: passwordVisible,
                   cursorColor: mainColor,
                   decoration: InputDecoration(
-                    labelText: localizations!.getLocalization("password_label_text"),
-                    helperText: localizations!.getLocalization("password_sign_in_helper_text"),
+                    labelText:
+                        localizations!.getLocalization("password_label_text"),
+                    helperText: localizations!
+                        .getLocalization("password_sign_in_helper_text"),
                     filled: true,
                     labelStyle: TextStyle(
                       color: myFocusNode.hasFocus ? Colors.black : Colors.black,
@@ -514,7 +551,9 @@ class _SignInPageState extends State<_SignInPage> {
                     ),
                     suffixIcon: IconButton(
                       icon: Icon(
-                        passwordVisible ? Icons.visibility : Icons.visibility_off,
+                        passwordVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off,
                       ),
                       onPressed: () {
                         setState(() {
@@ -526,11 +565,13 @@ class _SignInPageState extends State<_SignInPage> {
                   ),
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return localizations!.getLocalization("password_sign_in_helper_text");
+                      return localizations!
+                          .getLocalization("password_sign_in_helper_text");
                     }
 
                     if (value.length < 4) {
-                      return localizations!.getLocalization("password_sign_in_characters_count_error_text");
+                      return localizations!.getLocalization(
+                          "password_sign_in_characters_count_error_text");
                     }
 
                     return null;
@@ -539,17 +580,21 @@ class _SignInPageState extends State<_SignInPage> {
               ),
               //Button "Войти"
               Padding(
-                padding: const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
+                padding:
+                    const EdgeInsets.only(left: 18.0, right: 18.0, top: 18.0),
                 child: new MaterialButton(
                   minWidth: double.infinity,
                   color: mainColor,
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      if(_loginController.text == 'demoapp' && _passwordController.text == 'demoapp') {
+                      if (_loginController.text == 'demoapp' &&
+                          _passwordController.text == 'demoapp') {
                         preferences!.setBool('demo', true);
-                        _bloc.add(LoginEvent(_loginController.text, _passwordController.text));
-                      }else {
-                        _bloc.add(LoginEvent(_loginController.text, _passwordController.text));
+                        _bloc.add(LoginEvent(
+                            _loginController.text, _passwordController.text));
+                      } else {
+                        _bloc.add(LoginEvent(
+                            _loginController.text, _passwordController.text));
                       }
                     }
                   },
@@ -566,10 +611,12 @@ class _SignInPageState extends State<_SignInPage> {
                 ),
                 style: ButtonStyle(
                   elevation: MaterialStateProperty.all(0.0),
-                  backgroundColor: MaterialStateProperty.all(Colors.transparent),
+                  backgroundColor:
+                      MaterialStateProperty.all(Colors.transparent),
                 ),
                 onPressed: () {
-                  Navigator.of(context).pushNamed(RestorePasswordScreen.routeName);
+                  Navigator.of(context)
+                      .pushNamed(RestorePasswordScreen.routeName);
                 },
               ),
             ],
@@ -584,7 +631,9 @@ class _SignInPageState extends State<_SignInPage> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text(localizations!.getLocalization("error_dialog_title"), textScaleFactor: 1.0, style: TextStyle(color: Colors.black, fontSize: 20.0)),
+            title: Text(localizations!.getLocalization("error_dialog_title"),
+                textScaleFactor: 1.0,
+                style: TextStyle(color: Colors.black, fontSize: 20.0)),
             content: Text(text),
             actions: <Widget>[
               ElevatedButton(
